@@ -1,6 +1,6 @@
 package com.github.konradr25.gis;
 
-import com.google.common.graph.Graph;
+import com.google.common.graph.MutableValueGraph;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -33,7 +33,7 @@ public class GisApplication {
         if (args == null || args.length == 0) {
             log.info("No args passed...");
         } else {
-            Graph graph = fileService.loadFilesAndBuildGraph(args);
+            MutableValueGraph<Object, Integer> graph = fileService.loadFilesAndBuildGraph(args);
             algoService.run(graph);
         }
     }
