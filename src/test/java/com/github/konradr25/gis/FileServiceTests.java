@@ -1,6 +1,6 @@
 package com.github.konradr25.gis;
 
-import com.google.common.graph.MutableValueGraph;
+import com.google.common.graph.MutableGraph;
 import org.junit.Test;
 
 import java.net.URL;
@@ -17,7 +17,7 @@ public class FileServiceTests {
         String[] args = {resource.getPath()};
 
         //WHEN
-        MutableValueGraph<Object, Integer> graph = fileService.loadFilesAndBuildGraph(args);
+        MutableGraph<Integer> graph = fileService.loadFilesAndBuildGraph(args);
 
         //THEN
         assertNotNull(graph);
