@@ -1,2 +1,2 @@
 # GIS
-Program do poszukiwania (quasi) cykli
+Program do poszukiwania (quasi) przekrojów
