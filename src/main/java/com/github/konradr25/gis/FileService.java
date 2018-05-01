@@ -1,5 +1,6 @@
 package com.github.konradr25.gis;
 
+import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
 import com.google.common.graph.Graph;
 import com.google.common.graph.GraphBuilder;
@@ -40,8 +41,16 @@ public class FileService {
     }
 
     private Graph parseText(List<String> loadedFile) {
-        MutableGraph<Object> graph = GraphBuilder.undirected().build();
-        //TODO
+        MutableGraph<Object> graph = GraphBuilder.directed().build();
+        for (int lineIndex = 0; lineIndex < loadedFile.size(); lineIndex++) {
+            List<String> splitedLine = Splitter.on(" ").splitToList(loadedFile.get(lineIndex));
+            for (int columnIndex = 0; columnIndex < splitedLine.size(); columnIndex ++) {
+                if (Integer.parseInt(splitedLine.get(columnIndex)) != 0) {
+                    graph.putEdge(lineIndex, columnIndex);
+                }
+            }
+
+        }
         return graph;
     }
 

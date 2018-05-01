@@ -3,16 +3,14 @@ package com.github.konradr25.gis;
 import com.google.common.graph.Graph;
 import org.junit.Test;
 
-import java.net.URISyntaxException;
 import java.net.URL;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 public class FileServiceTests {
 
     @Test
-    public void shouldCreateGraph() throws URISyntaxException {
+    public void shouldCreateGraph() {
         //GIVEN
         FileService fileService = new FileService(new FileValidatorService());
         URL resource = FileServiceTests.class.getClassLoader().getResource("testMatrix");
@@ -24,5 +22,6 @@ public class FileServiceTests {
         //THEN
         assertNotNull(graph);
         assertFalse(graph.nodes().isEmpty());
+        assertEquals(3, graph.nodes().size());
     }
 }
