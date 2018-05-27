@@ -1,6 +1,5 @@
 package com.github.konradr25.gis;
 
-import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
 import com.google.common.graph.GraphBuilder;
 import com.google.common.graph.MutableGraph;
@@ -12,6 +11,8 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -44,7 +45,13 @@ public class FileService {
     private MutableGraph<Integer> parseText(List<String> loadedFile) {
         MutableGraph<Integer> graph = GraphBuilder.undirected().build();
         for (int lineIndex = 0; lineIndex < loadedFile.size(); lineIndex++) {
-            List<Integer> splitedLine = Splitter.on(" ").splitToList(loadedFile.get(lineIndex)).stream()
+            log.info("Processing line number " + lineIndex);
+
+            fileValidatorService.isGraphFromStandardInput(loadedFile.get(lineIndex));
+
+            List<String> splitedLineStr = new LinkedList<String>(Arrays.asList(loadedFile.get(lineIndex).split("\\s+")));
+            splitedLineStr.remove("");
+            List<Integer> splitedLine = splitedLineStr.stream()
                     .map(Integer::parseInt).collect(Collectors.toList());
 
             if (splitedLine.size() == 2) {
