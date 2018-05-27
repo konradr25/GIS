@@ -1,5 +1,6 @@
 package com.github.konradr25.gis;
 
+import com.google.common.graph.EndpointPair;
 import com.google.common.graph.MutableGraph;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import javax.annotation.PostConstruct;
+import java.util.List;
+import java.util.Set;
 
 @Slf4j
 @SpringBootApplication
@@ -34,7 +37,7 @@ public class GisApplication {
             log.info("No args passed...");
         } else {
             MutableGraph<Integer> graph = fileService.loadFilesAndBuildGraph(args);
-            algoService.run(graph);
+            Set<List<EndpointPair<Integer>>> quasiCuts = algoService.run(graph);
         }
     }
 }

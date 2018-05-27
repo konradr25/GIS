@@ -7,7 +7,7 @@ import java.util.*;
 @Slf4j
 public class Helper {
 
-    public static <T> List<T> symetricAdd(Collection<T> c1, Collection<T> c2) {
+    public static <T> List<T> symetricAdd(List<T> c1, List<T> c2) {
         List<T> joined = new ArrayList<>();
         joined.addAll(c1);
         joined.addAll(c2);
