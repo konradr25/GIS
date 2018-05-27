@@ -117,7 +117,7 @@ public class AlgoService {
                 }
             }
 
-            quasiCuts.add(quasiCut);
+            quasiCuts.add(new ArrayList<>(new HashSet<>(quasiCut)));
         }
 
     }
