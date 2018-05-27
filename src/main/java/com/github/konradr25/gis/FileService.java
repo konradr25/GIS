@@ -2,10 +2,13 @@ package com.github.konradr25.gis;
 
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
-import com.google.common.graph.*;
+import com.google.common.graph.GraphBuilder;
+import com.google.common.graph.MutableGraph;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.FileUtils;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -55,5 +58,9 @@ public class FileService {
 
     private boolean isFile(String[] args) {
         return args != null && args.length == 1;
+    }
+
+    public void writeTextToFile(String output) throws IOException {
+        FileUtils.writeStringToFile(new File("output.txt"), output);
     }
 }

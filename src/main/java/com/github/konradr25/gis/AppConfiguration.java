@@ -22,5 +22,9 @@ public class AppConfiguration {
         return new FileService(fileValidatorService);
     }
 
+    @Bean
+    public GraphVisualizationService graphVisualizationService() {
+        return new GraphVisualizationService();
+    }
 
 }
