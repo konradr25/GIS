@@ -21,12 +21,13 @@ public class AlgoService {
         List<List<EndpointPair<Integer>>> base = createBase(graph, tree);
         Set<List<EndpointPair<Integer>>> quasiCuts = findQuasiCut(base);
         return quasiCuts;
-
     }
 
     public MutableGraph<Integer> createTreeUsingBfs(MutableGraph<Integer> graph, int startNode) {
+        log.info("createTreeUsingBfs()  start...");
         MutableGraph<Integer> tree = GraphBuilder.undirected().build();
         createTree(graph, tree, Sets.newHashSet(startNode), startNode);
+        log.info("createTreeUsingBfs()  end...");
         return tree;
     }
 
@@ -48,6 +49,7 @@ public class AlgoService {
      * @return Lista list krawędzi
      */
     private List<List<EndpointPair<Integer>>> createBase(MutableGraph<Integer> graph, MutableGraph<Integer> tree) {
+        log.info("createBase()  start...");
         List<EndpointPair<Integer>> allEdges = new ArrayList<>(tree.edges());
         List<List<EndpointPair<Integer>>> allBaseEdges = Lists.newArrayList();
 
@@ -71,12 +73,12 @@ public class AlgoService {
 
             allBaseEdges.add(baseEdges);
         });
+        log.info("createBase()  end...");
 
         return allBaseEdges;
     }
 
     private Set<Integer> getAllSuccessors(MutableGraph<Integer> splittedTree, Set<Integer> result, Integer node) {
-
         result.add(node);
         Set<Integer> successors = splittedTree.successors(node);
 
@@ -93,9 +95,12 @@ public class AlgoService {
     }
 
     private Set<List<EndpointPair<Integer>>> findQuasiCut(List<List<EndpointPair<Integer>>> base) {
+        log.info("findQuasiCut()  start...");
         Set<List<EndpointPair<Integer>>> quasiCuts = Sets.newHashSet();
         findQuasiCut(quasiCuts, base, Lists.newArrayList(1));
         findQuasiCut(quasiCuts, base, Lists.newArrayList(2));
+
+        log.info("findQuasiCut()  end...");
         return quasiCuts;
     }
 
