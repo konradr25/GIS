@@ -15,6 +15,11 @@ import java.util.Set;
 
 @Slf4j
 public class AlgoService {
+    /**
+     * Run method
+     * @param graph created graph from input
+     * @return set of quasi-cuts
+     */
     public Set<List<EndpointPair<Integer>>> run(MutableGraph<Integer> graph) {
         log.info("Algo started...");
         if (graph.edges() == null || graph.edges().isEmpty()) {
@@ -31,6 +36,12 @@ public class AlgoService {
         return quasiCuts;
     }
 
+    /**
+     * Creating tree using BSF algorithm
+     * @param graph created graph from input
+     * @param startNode first node to process
+     * @return spanning tree of the graph
+     */
     public MutableGraph<Integer> createTreeUsingBfs(MutableGraph<Integer> graph, int startNode) {
         log.info("createTreeUsingBfs()  start...");
         MutableGraph<Integer> tree = GraphBuilder.undirected().build();
@@ -51,10 +62,10 @@ public class AlgoService {
     }
 
     /**
-     *
-     * @param graph
-     * @param tree
-     * @return Lista list krawędzi
+     * Create base to find quasi-cuts
+     * @param graph created graph from input
+     * @param tree spanning tree of the graph
+     * @return base to find quasi-cuts - list of lists of edges
      */
     private List<List<EndpointPair<Integer>>> createBase(MutableGraph<Integer> graph, MutableGraph<Integer> tree) {
         log.info("createBase()  start...");
@@ -91,7 +102,7 @@ public class AlgoService {
         result.add(node);
         Set<Integer> successors = splittedTree.successors(node);
 
-        //zadnych nowych potencjalnych wierzcholkow
+        //no new nodes
         if (successors.isEmpty() || result.containsAll(successors))
             return result;
 
@@ -103,6 +114,9 @@ public class AlgoService {
         return result;
     }
 
+    /**
+     * Recursive process of linear combination of elements of the base.
+     */
     private Set<List<EndpointPair<Integer>>> findQuasiCut(List<List<EndpointPair<Integer>>> base) {
         log.info("findQuasiCut()  start...");
         Set<List<EndpointPair<Integer>>> quasiCuts = Sets.newHashSet();
