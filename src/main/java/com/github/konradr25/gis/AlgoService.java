@@ -17,7 +17,15 @@ import java.util.Set;
 public class AlgoService {
     public Set<List<EndpointPair<Integer>>> run(MutableGraph<Integer> graph) {
         log.info("Algo started...");
-        MutableGraph<Integer> tree = createTreeUsingBfs(graph, 0);
+        if (graph.edges() == null || graph.edges().isEmpty()) {
+            log.info("Graph with no edges, returning empty array");
+            return new HashSet<>();
+        }
+        MutableGraph<Integer> tree = createTreeUsingBfs(graph, graph.edges().iterator().next().nodeV());
+        if (!tree.nodes().containsAll(graph.nodes())) {
+            log.error("Graph is disconnected");
+            throw new InvalidInputException("Graph is disconnected");
+        }
         List<List<EndpointPair<Integer>>> base = createBase(graph, tree);
         Set<List<EndpointPair<Integer>>> quasiCuts = findQuasiCut(base);
         return quasiCuts;
@@ -73,7 +81,8 @@ public class AlgoService {
 
             allBaseEdges.add(baseEdges);
         });
-        log.info("createBase()  end...");
+        log.info("createBase()  end... with base: " + allBaseEdges.toString());
+        log.info("createBase()  end... with baseSize: " + allBaseEdges.size());
 
         return allBaseEdges;
     }
